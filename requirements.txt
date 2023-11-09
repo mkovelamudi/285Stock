@@ -1,2 +1,8 @@
 flask
 gunicorn
+Flask-Cors
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
+requests

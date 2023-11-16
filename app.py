@@ -2,12 +2,10 @@ import os
 import requests
 import json
 from flask import Flask, request, Response
-from flask_cors import CORS, cross_origin, Config
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-config_object = Config()
-CORS(app,origins=[config_object.CORS_ALLOW_ORIGIN], # the domains allowed to access the server
-     supports_credentials=config_object.CORS_SUPPORTS_CREDENTIALS) # True
+CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 """ Stocks for investment strategies"""
@@ -25,9 +23,10 @@ strategy_value_investing = ["INTC", "BABA", "GE"]
 
 def get_stock_quote(stock_list):
     """Function that calls stock API for each stock to fetch stock details"""
-    get_data = '?token=pk_31638584dd6c4c04a550a33b66e50c33&filter=symbol,companyName,latestPrice,latestTime,change,changePercent'
+    get_data = '?token=pk_12347229443d4adebb035a0e1b17a633&filter=symbol,companyName,latestPrice,latestTime,change,changePercent'
     stock_details = []
     for ticker in stock_list:
+        request = 'https://cloud.iexapis.com/v1/stock/{}/quote/{}'.format(ticker, get_data)
         resp = requests.get('https://cloud.iexapis.com/v1/stock/{}/quote/{}'.format(ticker, get_data))
         stock_details.append(resp.json())
 
@@ -91,4 +90,4 @@ def return_data():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port = 8080)

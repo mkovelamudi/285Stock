@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Typography, Divider, Spin, Row, Col, Card } from 'antd';
 import axios from 'axios';
 import StockCard from './StockCard';
+import StockConsolidated from './StockConsolidated';
 import { StockPieChart } from './StockPieChart';
 
 const queryString = require('query-string');
@@ -39,7 +40,7 @@ class ResultApp extends Component {
 
     console.log(postBody);
 
-    let response = await axios.post(`http://127.0.0.1:8080/getData`, postBody);
+    let response = await axios.post(`http://127.0.0.1:5000/getData`, postBody);
 
     console.log(response);
     console.log(JSON.stringify(response));
@@ -137,6 +138,12 @@ class ResultApp extends Component {
                         amount={this.state.amountResponse[2]}
                       />
                     </Row>
+                    <Row gutter={16}>
+                      <StockConsolidated/>
+                    </Row>
+                    <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
+                    <StockPieChart data={this.state.piechartResponse} />
+                    </Row>
                   </div>
                 </div>
               )}
@@ -166,6 +173,12 @@ class ResultApp extends Component {
                         amount={this.state.amountResponse[2]}
                       />
                     </Row>
+                    <Row gutter={16}>
+                      <StockConsolidated/>
+                    </Row>
+                    <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
+                    <StockPieChart data={this.state.piechartResponse.slice(0,3)} />
+                    </Row>
                   </div>
                   <Divider />
                   <div style={{ textAlign: 'center' }}>
@@ -190,17 +203,23 @@ class ResultApp extends Component {
                         amount={this.state.amountResponse[2]}
                       />
                     </Row>
+                    <Row gutter={16}>
+                      <StockConsolidated/>
+                    </Row>
+                    <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
+                    <StockPieChart data={this.state.piechartResponse.slice(3,6)} />
+                    </Row>
                   </div>
                 </div>
               )}
             </Spin>
           </div>
         </div>
-        <div>
+        {/* <div>
           <div className="box effect1" style={{ marginTop: '-40px' }}>
             <StockPieChart data={this.state.piechartResponse} />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

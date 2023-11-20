@@ -74,9 +74,9 @@ class ResultApp extends Component {
       // console.log(this.state.piechartResponse[i].title)
       arr.push(this.state.piechartResponse[i].title)
     }
-    // this.setState({ symbols: arr });
     console.log('this.state.symbols');
     console.log(arr);
+    this.setState({ symbols: arr });
   }
 
   render() {
@@ -215,7 +215,7 @@ class ResultApp extends Component {
                       />
                     </Row>
                     <Row gutter={16}>
-                      <StockConsolidated data={this.state.symbols}/>
+                    <StockConsolidated data={this.state.symbols}/>
                     </Row>
                     <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
                     <StockPieChart data={this.state.piechartResponse.slice(3,6)} />

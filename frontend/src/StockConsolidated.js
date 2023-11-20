@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography, Divider, Spin, Row, Col, Card } from 'antd';
   const data = [
@@ -53,29 +53,60 @@ import { Typography, Divider, Spin, Row, Col, Card } from 'antd';
     },
   ];
 
-  export default function StockConsolidated() {
-      return (
-          <BarChart
-            width={700}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-            <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-            <Bar dataKey="dv" fill="#82ca9g" activeBar={<Rectangle fill="black" stroke="red" />} />
-          </BarChart>
-      );
-    }
+  // export default function StockConsolidated(data) {
+  //     return (
+  //         <BarChart
+  //           width={700}
+  //           height={300}
+  //           data={data}
+  //           margin={{
+  //             top: 5,
+  //             right: 30,
+  //             left: 20,
+  //             bottom: 5,
+  //           }}
+  //         >
+  //           <CartesianGrid strokeDasharray="3 3" />
+  //           <XAxis dataKey="name" />
+  //           <YAxis />
+  //           <Tooltip />
+  //           <Legend />
+  //           <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+  //           <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+  //           <Bar dataKey="dv" fill="#82ca9g" activeBar={<Rectangle fill="black" stroke="red" />} />
+  //         </BarChart>
+  //     );
+  //   }
+
+  class StockConsolidated extends Component {
+    render() {
+      console.log('Inside StockConsolidated')
+      console.log(this.props.data)
+    return (
+        <BarChart
+          width={700}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+          <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+          <Bar dataKey="dv" fill="#82ca9g" activeBar={<Rectangle fill="black" stroke="red" />} />
+        </BarChart>
+    );
+  }
+}
+
+export default StockConsolidated
   
   

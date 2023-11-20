@@ -17,6 +17,7 @@ class ResultApp extends Component {
     strategyResponse: [],
     amountResponse: [],
     piechartResponse: [],
+    symbols:[],
   };
 
   async componentDidMount() {
@@ -66,6 +67,16 @@ class ResultApp extends Component {
     console.log(this.state.strategyResponse);
     console.log('this.state.piechartResponse');
     console.log(this.state.piechartResponse);
+    
+    const arr = []
+    for (let i=0; i< this.state.piechartResponse.length; i++){
+      // console.log('printing')
+      // console.log(this.state.piechartResponse[i].title)
+      arr.push(this.state.piechartResponse[i].title)
+    }
+    // this.setState({ symbols: arr });
+    console.log('this.state.symbols');
+    console.log(arr);
   }
 
   render() {
@@ -139,7 +150,7 @@ class ResultApp extends Component {
                       />
                     </Row>
                     <Row gutter={16}>
-                      <StockConsolidated/>
+                      <StockConsolidated data={this.state.symbols} />
                     </Row>
                     <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
                     <StockPieChart data={this.state.piechartResponse} />
@@ -174,7 +185,7 @@ class ResultApp extends Component {
                       />
                     </Row>
                     <Row gutter={16}>
-                      <StockConsolidated/>
+                      <StockConsolidated data={this.state.symbols}/>
                     </Row>
                     <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
                     <StockPieChart data={this.state.piechartResponse.slice(0,3)} />
@@ -204,7 +215,7 @@ class ResultApp extends Component {
                       />
                     </Row>
                     <Row gutter={16}>
-                      <StockConsolidated/>
+                      <StockConsolidated data={this.state.symbols}/>
                     </Row>
                     <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
                     <StockPieChart data={this.state.piechartResponse.slice(3,6)} />

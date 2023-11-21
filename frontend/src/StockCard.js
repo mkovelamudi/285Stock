@@ -394,7 +394,7 @@ class StockCard extends Component {
     ];
 
     let response = await axios.get(
-      `https://cloud.iexapis.com/v1/stock/${this.props.data.symbol}/chart/1m?token=pk_12347229443d4adebb035a0e1b17a633`
+      `https://cloud.iexapis.com/v1/stock/${this.props.data.symbol}/chart/1m?token=pk_57eb2bb92c054632a91f7b9ac5654848`
     );
 
     console.log(response.data);

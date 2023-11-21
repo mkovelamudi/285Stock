@@ -61,22 +61,28 @@ class ResultApp extends Component {
     }
 
     this.setState({ amountResponse: response.data.amountResponse });
-    this.setState({ piechartResponse: response.data.piechartResponse });
+    
 
+    const arr = []
+    for (let i=0; i< this.state.strategyResponse.length; i++){
+      arr.push(this.state.strategyResponse[i].symbol)
+    }
+    if(arr.length == 6) {
+      const arr1 = arr.slice(0,3)
+      const arr2  = arr.slice(3,6)
+      this.setState({ symbols: [arr1,arr2] });
+    }
+    else{
+      this.setState({ symbols: arr });
+    }
+    // console.log('this.state.symbols');
+    // console.log(this.state.symbols);
+    this.setState({ piechartResponse: response.data.piechartResponse });
     console.log('this.state.strategyResponse');
     console.log(this.state.strategyResponse);
     console.log('this.state.piechartResponse');
     console.log(this.state.piechartResponse);
     
-    const arr = []
-    for (let i=0; i< this.state.piechartResponse.length; i++){
-      // console.log('printing')
-      // console.log(this.state.piechartResponse[i].title)
-      arr.push(this.state.piechartResponse[i].title)
-    }
-    console.log('this.state.symbols');
-    console.log(arr);
-    this.setState({ symbols: arr });
   }
 
   render() {
@@ -185,7 +191,7 @@ class ResultApp extends Component {
                       />
                     </Row>
                     <Row gutter={16}>
-                      <StockConsolidated data={this.state.symbols}/>
+                      <StockConsolidated data={this.state.symbols[0]}/>
                     </Row>
                     <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
                     <StockPieChart data={this.state.piechartResponse.slice(0,3)} />
@@ -215,7 +221,7 @@ class ResultApp extends Component {
                       />
                     </Row>
                     <Row gutter={16}>
-                    <StockConsolidated data={this.state.symbols}/>
+                    <StockConsolidated data={this.state.symbols[1]}/>
                     </Row>
                     <Row style={{ marginTop: '-50px', marginLeft: '-100px' }}>
                     <StockPieChart data={this.state.piechartResponse.slice(3,6)} />

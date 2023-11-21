@@ -41,13 +41,50 @@ export class StockPieChart extends React.Component {
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
+        {/* {`${this.props.data[index].title} (${(percent * 100).toFixed(0)}%)`} */}
         {this.props.data[index].title + ":"}
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
   };
 
+  state = {
+    data: [],
+    labels: [],
+    loading: true,
+  };
+
+  async componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.data !== this.props.data) {
+      this.fetchData();
+    }
+  }
+
+  fetchData = async () => {
+    if (typeof this.props.data == "undefined"|| this.props.data.length == 0) return; // Don't fetch if URL is not available
+    this.setState({ loading: true });
+    try {
+      this.setState({data: this.props.data})
+      this.setState({labels: this.renderCustomizedLabel})
+      this.setState({loading: false})
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      this.setState({ loading: false });
+    }
+  }
+
   render() {
+    const { final, resp, loading } = this.state;
+
+      if (loading) {
+        return <div>Loading...</div>;
+      }
+    // console.log("before returning")
+    // console.log(this.state.labels)
     return (
       <PieChart
         onMouseEnter={this.onPieEnter}
@@ -56,11 +93,11 @@ export class StockPieChart extends React.Component {
         style={{ marginTop: "-100px" }}
       >
         <Pie
-          data={this.props.data}
+          data={this.state.data}
           cx={450}
           cy={350}
           labelLine={false}
-          label={this.renderCustomizedLabel}
+          label={this.state.labels}
           outerRadius={180}
           fill=""
         >

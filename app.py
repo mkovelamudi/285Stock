@@ -23,7 +23,7 @@ strategy_value_investing = ["INTC", "BABA", "GE"]
 
 def get_stock_quote(stock_list):
     """Function that calls stock API for each stock to fetch stock details"""
-    get_data = '?token=pk_12347229443d4adebb035a0e1b17a633&filter=symbol,companyName,latestPrice,latestTime,change,changePercent'
+    get_data = '?token=pk_57eb2bb92c054632a91f7b9ac5654848&filter=symbol,companyName,latestPrice,latestTime,change,changePercent'
     stock_details = []
     for ticker in stock_list:
         request = 'https://cloud.iexapis.com/v1/stock/{}/quote/{}'.format(ticker, get_data)
@@ -86,6 +86,24 @@ def return_data():
     response_details = {"strategiesResponse": response, "amountResponse": responseAmount, "piechartResponse": stock_result_pieChart}
     response=Response(json.dumps(response_details), mimetype='application/json')
     return response
+
+@app.route('/getIndividualData', methods=['POST'])
+@cross_origin(origin='*')
+def get_individual_data():
+    symbols = request.json['Symbols']
+    
+    stock_data = []
+    for symbol in symbols:
+        # api_request  = 'https://cloud.iexapis.com/v1/stock/{}/chart/1m?token=pk_57eb2bb92c054632a91f7b9ac5654848'.format(symbol)
+        api_request = 'https://cloud.iexapis.com/v1/data/core/historical_prices/{}?range=7d&token=pk_57eb2bb92c054632a91f7b9ac5654848'.format(str.lower(symbol))
+        resp = requests.get(api_request)
+        stock_data.append(resp.json())
+
+    response_details = {"SymbolsData": stock_data}
+    # print(response_details)
+    response=Response(json.dumps(response_details), mimetype='application/json')
+    return response
+
 
 
 if __name__ == "__main__":

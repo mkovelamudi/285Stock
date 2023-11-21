@@ -1,57 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography, Divider, Spin, Row, Col, Card } from 'antd';
-  const data = [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      dv: 1200,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      dv: 1100,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      dv: 5000,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      dv: 3000,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      dv: 1500,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      dv: 2400,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      dv: 3200,
-      amt: 2100,
-    },
-  ];
+import axios from 'axios';
 
   // export default function StockConsolidated(data) {
   //     return (
@@ -79,14 +29,80 @@ import { Typography, Divider, Spin, Row, Col, Card } from 'antd';
   //   }
 
   class StockConsolidated extends Component {
+    state = {
+      data: [],
+      response_data: [],
+      loading: true,
+    };
+
+    async componentDidMount() {
+      this.fetchData();
+    }
+  
+    componentDidUpdate(prevProps) {
+      if (prevProps.data !== this.props.data) {
+        this.fetchData();
+      }
+    }
+  
+    fetchData = async () => {
+      if (typeof this.props.data == "undefined"|| this.props.data.length == 0) return; // Don't fetch if URL is not available
+      // const { symbols_data } = this.props.data;
+      this.setState({ loading: true });
+      try {
+        const symbols_data = this.props.data
+        // console.log('Inside StockConsolidated')
+        // console.log(symbols_data)
+        // if(symbols_data)
+        let postBody = {}
+        postBody.Symbols = symbols_data
+        const response = await axios.post(`http://127.0.0.1:5000/getIndividualData`, postBody);
+        // console.log('response')
+        // console.log(JSON.stringify(response))
+        this.setState({ response_data: response.data.SymbolsData, loading: false});
+        // console.log(this.state.response_data)
+
+        const temp = []
+        for(let i=0; i< this.state.response_data[0].length; i++){
+          const record ={}
+          record.name = this.state.response_data[0][i]['priceDate']
+          const symbol1 = this.state.response_data[0][i]['symbol']
+          const price1 = this.state.response_data[0][i]['close']
+          record[symbol1] = price1
+          const symbol2 = this.state.response_data[1][i]['symbol']
+          const price2 = this.state.response_data[1][i]['close']
+          record[symbol2] = price2
+          const symbol3 = this.state.response_data[2][i]['symbol']
+          const price3 = this.state.response_data[2][i]['close']
+          record[symbol3] = price3
+
+          // console.log("record")
+          // console.log(record)
+          temp.push(record)
+          // console.log(temp)
+        }
+        console.log("temp")
+        console.log(temp)
+        this.setState({ data: temp, loading: false});
+        console.log(this.state.data)
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        this.setState({ loading: false });
+      }
+    }
+
     render() {
-      console.log('Inside StockConsolidated')
-      console.log(this.props.data)
-    return (
+      const { final, resp, loading } = this.state;
+
+      if (loading) {
+        return <div>Loading...</div>;
+      }
+
+      return (
         <BarChart
           width={700}
           height={300}
-          data={data}
+          data={this.state.data}
           margin={{
             top: 5,
             right: 30,
@@ -99,11 +115,11 @@ import { Typography, Divider, Spin, Row, Col, Card } from 'antd';
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-          <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-          <Bar dataKey="dv" fill="#82ca9g" activeBar={<Rectangle fill="black" stroke="red" />} />
+          <Bar dataKey= {this.state.response_data[0][1]['symbol']} fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+          <Bar dataKey={this.state.response_data[1][1]['symbol']} fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+          <Bar dataKey={this.state.response_data[2][1]['symbol']} fill="#82ca9g" activeBar={<Rectangle fill="black" stroke="red" />} />
         </BarChart>
-    );
+        );
   }
 }
 

@@ -77,15 +77,15 @@ class App extends Component {
       isTransparent: false,
       showSymbolLogo: true,
       showFloatingTooltip: false,
-      plotLineColorGrowing: 'rgba(41, 98, 255, 1)',
-      plotLineColorFalling: 'rgba(41, 98, 255, 1)',
-      gridLineColor: 'rgba(240, 243, 250, 0)',
+      plotLineColorGrowing: 'rgba(255, 28, 88, 1)',
+      plotLineColorFalling: 'rgba(255, 28, 88, 1)',
+      gridLineColor: 'rgba(247, 89, 144, 0)',
       scaleFontColor: 'rgba(106, 109, 120, 1)',
-      belowLineFillColorGrowing: 'rgba(41, 98, 255, 0.12)',
-      belowLineFillColorFalling: 'rgba(41, 98, 255, 0.12)',
-      belowLineFillColorGrowingBottom: 'rgba(41, 98, 255, 0)',
-      belowLineFillColorFallingBottom: 'rgba(41, 98, 255, 0)',
-      symbolActiveColor: 'rgba(41, 98, 255, 0.12)',
+      belowLineFillColorGrowing: 'rgba(255, 246, 133, 0.12)',
+      belowLineFillColorFalling: 'rgba(255, 246, 133, 0.12)',
+      belowLineFillColorGrowingBottom: 'rgba(0, 73, 183, 0)',
+      belowLineFillColorFallingBottom: 'rgba(0, 73, 183, 0)',
+      symbolActiveColor: 'rgba(0, 73, 183, 0.12)',
       tabs: [
         {
           title: 'Indices',
@@ -279,7 +279,7 @@ class App extends Component {
     return (
       <div className="App container-fluid">
         <div className="row heading">
-          <h2 className="headingh2">Stock Recommendation App</h2>
+          <h2 className="headingh2">Stock Portfolio Suggestion App</h2>
         </div>
         <div className="row">
           <div className="box effect1 col-sm box1">

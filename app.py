@@ -15,9 +15,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # 1st stock gets 50% of amount to be invested
 # 2nd stock gets 30% of amount to be invested
 # 3rd stock gets 20% of amount to be invested
-strategy_ethical_investing = ["AAPL", "TSLA", "ADBE"]
+strategy_ethical_investing = ["AAPL", "NSRGY", "ADBE"]
 strategy_growth_investing = ["OXLC", "ECC", "AMD"]
-strategy_index_investing = ["VOO", "VTI", "ILTB"]
+strategy_index_investing = ["IXUS", "VTI", "ILTB"]
 strategy_quality_investing = ["NVDA", "MU", "CSCO"]
 strategy_value_investing = ["INTC", "BABA", "GE"]
 

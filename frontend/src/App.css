@@ -82,15 +82,15 @@ footer {
   background: #0f2027; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #2c5364,
-    #203a43,
-    #0f2027
+    #bdc3c7,
+    #2c3e50,
+    #292e49
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #2c5364,
-    #203a43,
-    #0f2027
+    #bdc3c7,
+    #2c3e50,
+    #292e49
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   text-align: center;
   padding: 20px;
@@ -129,7 +129,7 @@ footer {
   -webkit-transition: all 0.25s;
 }
 .confirm {
-  background-color: #cbc8c8;
+  background-color: #bbd2c5;
   padding: 100px;
   margin-bottom: 40px;
   color: wheat;
